@@ -1,0 +1,43 @@
+{
+  "name": "daily-tracker",
+  "private": true,
+  "version": "0.0.0",
+  "author": "gh0stonio",
+  "description": "Small app helping you to keep track of your daily tasks",
+  "main": "main/index.js",
+  "scripts": {
+    "clean": "rimraf dist main renderer/out renderer/.next",
+    "renderer:dev": "next dev renderer",
+    "renderer:build": "next build renderer && next export renderer",
+    "electron:dev": "npm run electron:build && electron .",
+    "electron:build": "tsc -p electron && cp -R electron/assets main",
+    "build": "npm run clean && npm run renderer:build && npm run electron:build",
+    "package": "npm run build && electron-builder --dir"
+  },
+  "build": {
+    "appId": "gh0stonio.daily.tracker",
+    "productName": "DailyTracker",
+    "files": [
+      "main/**/*",
+      "node_modules/**/*"
+    ],
+    "mac": {
+      "icon": "./build/electron/assets/icon.icns",
+      "category": "public.app-category.utilities"
+    }
+  },
+  "dependencies": {
+    "next": "12.0.7",
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "17.0.0",
+    "@types/react": "17.0.37",
+    "electron": "^16.0.4",
+    "electron-builder": "^22.14.5",
+    "eslint": "8.4.1",
+    "eslint-config-next": "12.0.7",
+    "typescript": "4.5.4"
+  }
+}
